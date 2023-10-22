@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="${name}">이름</h1>
+<h1>[[${addr}]]</h1>
+
+<p th:text="${'<b>kim jaehyun</b>'}"></p>
+<!-- unescape-->
+<p th:utext="${'<b>kim jaehyun</b>'}"></p>
+
+<!-- template literal-->
+<p th:text="'이름 : '+${name}+', 주소 :'+${addr}"></p>
+<p th:text="|이름 : ${name}, 주소 :${addr}|"></p>
+
+<hr>
+<table border="1px">
+    <tr th:each="country : ${list}">
+        <td th:text="${country}"></td>
+    </tr>
+    <tr th:if="${list.size}==0">
+        <td>리스트가 없습니다!!</td>
+    </tr>
+    <!-- unless = if not-->
+    <tr th:unless="${list.size}==0">
+        <td>리스트가 있습니다!!</td>
+    </tr>
+</table>
+
+<hr>
+<select multiple>
+    <option th:each="opt : ${list}" th:value="${opt}">[[${opt}]]</option>
+</select>
+
+<hr>
+<input th:each="opt : ${list}" type="checkbox" th:value="${opt}">[[${opt}]]<br>
+<hr>
+<th:block th:each="opt : ${list}">
+    <input type="checkbox" th:value="${opt}">[[${opt}]]<br>
+</th:block>
+
+<hr>
+<a href="cart.html" th:href="@{/cart/list}">link</a><br>
+<a href="cart.html" th:href="@{/cart/list(cno=${cno}, pid='p01')}">link2</a>
+
+<hr>
+<!-- 타임리프 주석 -->
+<!-- 타임리프 엔진이 컴파일 안함
+    <a href="cart.html" th:href="@{/cart/list}">link</a><br>
+-->
+
+<!-- 타임리프 처리함,  html에서는 주석처리 -->
+<!--/*/ <a href="cart.html" th:href="@{/cart/list}">link</a><br> /*/-->
+
+<!-- html에서는 보이고 타임리프 엔진에서는 처리 안함 -->
+<!--/* */-->
+<table border="1">
+    <tr th:each="country : ${list}">
+        <td th:text="${country}"></td>
+    </tr>
+<!--(tr>td{$})*3-->
+
+    <!--/*-->
+    <tr>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>3</td>
+    </tr>
+    <!--*/-->
+</table>
+<hr>
+<!--/*/ <th:block th:each="opt : ${list}"> /*/-->
+    <input type="checkbox" th:value="${opt}">[[${opt}]]<br>
+<!--/*/ </th:block> /*/-->
+
+<hr>
+<h1 th:text="|pnum : ${pnum}|"></h1>
+<h1 th:text="|id : ${session.id}|"></h1>
+<h1 th:text="|email : ${application.email}|"></h1>
+
+
+<!--<script>-->
+<!--    let name = [[${name}]]-->
+<!--    let addr = [[${addr}]]-->
+<!--    let arr = [[${list}]]-->
+<!--    let mObj = [[${member}]]-->
+<!--</script>-->
+
+<!--<script th:inline="javascript">-->
+<!--    let name = [[${name}]]-->
+<!--    let addr = [[${addr}]]-->
+<!--    let arr = [[${list}]]-->
+<!--    let mObj = [[${member}]]-->
+<!--</script>-->
+
+
+</body>
+</html>
