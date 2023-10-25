@@ -66,6 +66,12 @@ public class HomeController {
         return "/login/register";
     }
 
+    @GetMapping("/login/adminRegister")
+    public String adminRegister() {
+
+        return "/login/adminRegister";
+    }
+
     // 회원가입
     @PostMapping("/login/register")
     public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO) {
@@ -88,8 +94,36 @@ public class HomeController {
         }
     }
 
+    // 관리자 회원가입
+    @PostMapping("/login/adminRegister")
+    public @ResponseBody ResponseDTO<?> insertAdmin(@Valid @RequestBody UserDTO userDTO) {
+//        userService.insertUser(user);
+//        return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 회원 가입 성공 완료!!");
+
+        User user = modelMapper.map(userDTO, User.class);
+        System.out.println("user.getId() = " + user.getId());
+
+        // 아이디 중복체크
+        User findUser = userService.getUser(user.getId());
+        System.out.println("findUser.getId() = " + findUser.getId());
+
+        if (findUser.getId() == null){
+            userService.insertAdmin(user);
+
+            return new ResponseDTO<>(HttpStatus.OK.value(),user.getUsername()+"님 회원가입 성공했습니다!!");
+        }else {
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUsername()+"님은 이미 회원이십니다");
+        }
+    }
+
+    @GetMapping("/login/login")
+    public String login() {
+
+        return "/login/login";
+    }
+
     // 로그인 인증 처리
-    @PostMapping("/auth/login")
+    @PostMapping("/login/login")
     public @ResponseBody ResponseDTO<?> login(@RequestBody User user
             , HttpSession session) {
         User findUser = userService.getUser(user.getId());
@@ -111,5 +145,12 @@ public class HomeController {
                         "비밀번호 오류");
             }
         }
+    }
+
+    // 로그아웃
+    @GetMapping("/login/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }

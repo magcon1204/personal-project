@@ -46,12 +46,13 @@
                     <li class="login">
                         <button><a href="/login/login">로그인</a></button>
                         <button><a href="/login/register">회원가입</a></button>
+                        <button><a href="/login/adminRegister">관리자 회원가입</a></button>
                     </li>
                 </th:block>
 
                 <th:block th:if="${session.principal != null}">
                     <li class="login">
-                        <button><a href="/auth/logout">로그아웃</a></button>
+                        <button><a href="/login/logout">로그아웃</a></button>
                     </li>
                 </th:block>
             </ul>

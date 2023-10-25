@@ -13,7 +13,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public User getUser(String id){
-        System.out.println("testsettsetstest");
 
         // 검색결과가 없으면 빈 객체를 리턴한다.
         User findUser = userRepository.findById(id).orElseGet(()->{
@@ -28,6 +27,13 @@ public class UserService {
 
 
         user.setRole(RoleType.USER);
+        userRepository.save(user);
+    }
+
+    public void insertAdmin(User user){
+
+
+        user.setRole(RoleType.ADMIN);
         userRepository.save(user);
     }
 }
