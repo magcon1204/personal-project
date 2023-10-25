@@ -5,6 +5,7 @@ import kr.ezen.thymeleafdemo.dto.ResponseDTO;
 import kr.ezen.thymeleafdemo.dto.UserDTO;
 import kr.ezen.thymeleafdemo.entity.User;
 import kr.ezen.thymeleafdemo.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,13 +24,13 @@ import java.util.List;
 
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
-    @Autowired
-    UserService userService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final UserService userService;
+
+    private final ModelMapper modelMapper;
 
     @GetMapping("/")
     public String home() {

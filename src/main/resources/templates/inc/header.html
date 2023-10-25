@@ -33,7 +33,7 @@
                     <a class="nav-link" href="/product">상품관리</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/member">회원관리</a>
+                    <a class="nav-link" href="/admin/userList">회원관리</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/order">주문리스트</a>
@@ -43,7 +43,7 @@
                 </li>
 
                 <th:block th:if="${session.principal == null}">
-                    <li class="login">
+                    <li class="login ms-auto">
                         <button><a href="/login/login">로그인</a></button>
                         <button><a href="/login/register">회원가입</a></button>
                         <button><a href="/login/adminRegister">관리자 회원가입</a></button>

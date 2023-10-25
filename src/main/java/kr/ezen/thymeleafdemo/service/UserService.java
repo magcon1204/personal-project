@@ -1,11 +1,14 @@
 package kr.ezen.thymeleafdemo.service;
 
 
+import kr.ezen.thymeleafdemo.dto.UserDTO;
 import kr.ezen.thymeleafdemo.entity.User;
 import kr.ezen.thymeleafdemo.member.UserRepository;
 import kr.ezen.thymeleafdemo.type.member.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -35,5 +38,15 @@ public class UserService {
 
         user.setRole(RoleType.ADMIN);
         userRepository.save(user);
+    }
+
+    public List userList(){
+        List user = userRepository.findUserList();
+
+        return user;
+    }
+
+    public void delete(String id) {
+        userRepository.deleteById(id);
     }
 }
